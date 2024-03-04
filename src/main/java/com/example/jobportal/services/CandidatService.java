@@ -151,6 +151,9 @@ public Experience addExperience(Long idCandidat,Experience experience) {
 
 
 
+    public Candidat findCandidatById(Long id) {
+        return candidatRepo.findCandidatById(id);
+    }
 
 
 
