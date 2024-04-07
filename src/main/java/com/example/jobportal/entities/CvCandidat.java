@@ -20,6 +20,7 @@ public class CvCandidat {
     private String nom;
     private String type;
     @Lob
+    @Column(columnDefinition="MEDIUMBLOB")
     private byte[] data;
 
     @OneToOne(fetch = FetchType.LAZY ,mappedBy = "cvCandidat")

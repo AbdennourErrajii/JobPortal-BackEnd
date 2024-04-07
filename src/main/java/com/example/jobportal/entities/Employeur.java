@@ -1,5 +1,6 @@
 package com.example.jobportal.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,27 +16,35 @@ import java.util.List;
 public class Employeur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(length = 50)
-    private String nomEntreprise;
+    private long id ;
     @Column(length = 50)
     private String nom ;
     @Column(length = 50)
     private String prenom ;
-    @Column(length = 20)
-    private String role;
-    @Column(length = 100)
-    private String email;
-    @Column(length = 100)
+    @Column(length = 50)
+    private String username;
+    @Column(length = 50)
+    private String email ;
+    @Column(length = 50)
     private String motDePasse;
-    private byte[] logo; // Stockage du logo en tant que tableau d'octets
     @Column(length = 50)
-    private String secteurActivite;
+    private String role;
     @Column(length = 50)
-    private String ville;
-    @Column(length = 100)
-    private String adresse;
+    private String telephone ;
 
-    @OneToMany(mappedBy = "employeur")
+    //Relation entre Employeur et OffreEmploi
+    @OneToMany(mappedBy = "employeur" )
+    // @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonManagedReference("employeur-offre")
     private List<OffreEmploi> offresEmploi;
+
+    public Employeur(String nom, String prenom, String username, String email, String motDePasse, String role, String telephone) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.username = username;
+        this.email = email;
+        this.motDePasse = motDePasse;
+        this.role = role;
+        this.telephone = telephone;
+    }
 }

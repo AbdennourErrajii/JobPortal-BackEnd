@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -18,18 +17,14 @@ public class EmploiInitServiceImpl implements IEmploiInitService {
 
     @Autowired
     private CandidatRepo candidatRepo;
-    @Autowired
-    private FormationRepo formationRepo;
-    @Autowired
-    private ExperienceRepo experienceRepo;
+
     @Autowired
     private EmployeurRepo employeurRepo;
     @Autowired
     private OffreEmploiRepo offreEmploiRepo;
     @Autowired
     private CandidatureRepo candidatureRepo;
-    @Autowired
-    private CompetenceRepo competenceRepo;
+
 
     @Autowired
     private DomaineRepo domaineRepo;
@@ -46,58 +41,43 @@ public class EmploiInitServiceImpl implements IEmploiInitService {
         candidat.setEmail(nameCandidat+"@gmail.com");
         candidat.setMotDePasse(nameCandidat+"123");
         candidat.setAdresse("Adresse "+nameCandidat);
+        candidat.setTelephone("0654321234");
+        candidat.setRole("candidate");
         candidatRepo.save(candidat);
     });
 
     }
 
-    @Override
-    public void initFormation() {
-      candidatRepo.findAll().forEach(candidat -> {
-          Stream.of("Bac","Bac+2","Bac+3","Bac+4","Bac+5").forEach(nomFormation -> {
-              Formation formation = new Formation();
-              formation.setDiplome(nomFormation);
-              formation.setEtablissement("Etablissement "+nomFormation);
-              formation.setDateObtention(new Date());
-              formation.setTitre(nomFormation+" Dév");
-              formation.setCandidat(candidat);
-              formationRepo.save(formation);
-          });
-      });
-    }
 
-    @Override
-    public void initExperience() {
-        candidatRepo.findAll().forEach(candidat -> {
-            Stream.of("Stage","Projet","Emploi").forEach(nomExperience -> {
-                Experience experience = new Experience();
-                experience.setPosteOccupe(nomExperience);
-                experience.setEntreprise("Entreprise Z "+nomExperience);
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.YEAR, -5);
-                experience.setDateDebut(calendar.getTime());
-                experience.setDateFin(new Date());
-                experience.setCandidat(candidat);
-                experienceRepo.save(experience);
-            });
-        });
 
-    }
 
     @Override
     public void initEmployeur() {
-        String [] villes={"Casablanca","Rabat","Marrakech","Fès","Tanger","Kénitra","Agadir"};
-        Stream.of("CAPgemeni","ATOS","CGI","SOCIETE GENERAL").forEach(nameEmployeur -> {
-            Employeur employeur = new Employeur();
-            employeur.setNomEntreprise(nameEmployeur);
-            employeur.setEmail(nameEmployeur+"@gmail.com");
-            employeur.setMotDePasse(nameEmployeur+"123");
-            employeur.setAdresse("Adresse "+nameEmployeur);
-            employeur.setVille(villes[new Random().nextInt(villes.length)]);
-            employeurRepo.save(employeur);
-        });
+
+        Employeur employeur = new Employeur();
+        employeur.setNom("Mouad");
+        employeur.setPrenom("Elkoipi");
+        employeur.setUsername("Mouad123");
+        employeur.setEmail("Mouad@gmail.com");
+        employeur.setMotDePasse("GMI123");
+        employeur.setRole("employer");
+        employeur.setTelephone("0654321234");
+        employeurRepo.save(employeur);
+
+        Employeur employeur1 = new Employeur();
+        employeur1.setNom("mouha");
+        employeur1.setPrenom("eljeem");
+        employeur1.setUsername("mouha");
+        employeur1.setEmail("MouadRekru@gmail.com");
+        employeur1.setMotDePasse("GMI12342024");
+        employeur1.setRole("employer");
+        employeur1.setTelephone("065430121234");
+        employeurRepo.save(employeur1);
+
+
 
     }
+
 
     @Override
     public void initOffre() {
@@ -124,19 +104,10 @@ public class EmploiInitServiceImpl implements IEmploiInitService {
 
     }
 
-    @Override
-    public void initCompetence() {
-        Stream.of("Java","Spring","Angular","React","NodeJS").forEach(nomCompetence -> {
-            Competence competence = new Competence();
-            competence.setNom(nomCompetence);
-            competenceRepo.save(competence);
-        });
-
-    }
 
     @Override
     public void initCandidature() {
-        String [] statut={"En attente","Acceptée","Refusée"};
+        String [] statut={"In progress","Accepted","Refused"};
         candidatRepo.findAll().forEach(candidat -> {
             offreEmploiRepo.findAll().forEach(offreEmploi -> {
                 Candidature candidature = new Candidature();
@@ -150,24 +121,20 @@ public class EmploiInitServiceImpl implements IEmploiInitService {
 
     }
 
-    @Override
-    public void initCompetenceToCandidat() {
-        List<Competence> competences=competenceRepo.findAll();
-        candidatRepo.findAll().forEach(candidat -> {
-            candidat.setCompetences(competences);
-        });
-    }
 
     @Override
-    public void initCompetenceToOffre() {
-        List<Competence> competences=competenceRepo.findAll();
-        offreEmploiRepo.findAll().forEach(offreEmploi -> {
-            offreEmploi.setCompetencesNecessaires(competences);
+    public void initVilles() {
+
+        Stream.of("Casablanca", "Fés", "Tanger", "Rabat", "Oujda","Marrakech" , "El Jadida").forEach(nameVille -> {
+            villeRepo.save(new Ville( nameVille));
         });
+
+
     }
 
     @Override
     public void initDomaine() {
+
         Stream.of("Informatique et technologies de l'information", "Finance et comptabilité",
                 "Ressources humaines", "Ingénierie et industrie",
                 "Vente et marketing","Services aux entreprises" ,
@@ -176,16 +143,6 @@ public class EmploiInitServiceImpl implements IEmploiInitService {
                 "Environnement et développement durable","Tourisme et hôtellerie ",
                 "Transport et logistique").forEach(nameDomaine -> {
             domaineRepo.save(new Domaine( nameDomaine));
-        });
-
-    }
-
-    @Override
-    public void initVille() {
-        Stream.of("Casablanca","Rabat","Marrakech","Fès","Tanger","Kénitra","Agadir").forEach(nomVille -> {
-            Ville ville = new Ville();
-            ville.setNom(nomVille);
-            villeRepo.save(ville);
         });
 
     }

@@ -23,7 +23,7 @@ public class Candidature implements Serializable {
 
    @Temporal(TemporalType.DATE)
     private Date dateCandidature;
-    @Column(length = 10)
+    @Column(length = 50)
     private String statut;
 
     //Relation entre (Candidat) et (Candidature)

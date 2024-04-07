@@ -47,54 +47,13 @@ public class CandidatController {
 
 
 
-   @GetMapping("/{id}/formations")
-    public ResponseEntity<List<Formation>> getAllFormationsByCandidat(@PathVariable("id") Long idCandidat){
-        List<Formation> formations=candidatService.getFormationsByCandidat(idCandidat);
-        return new ResponseEntity<>(formations,HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}/experiences")
-    public ResponseEntity<List<Experience>> getAllExperiencesByCandidat(@PathVariable("id") Long idCandidat){
-        List<Experience> experiences=candidatService.getExperiencesByCandidat(idCandidat);
-        return new ResponseEntity<>(experiences,HttpStatus.OK);
-    }
-
-    @PostMapping("/{id}/add/formation")
-    public ResponseEntity<Formation> addFormation(@PathVariable("id") Long idCandidat, @RequestBody Formation formation){
-       Formation formation1= candidatService.addFormation(idCandidat,formation);
-        return new ResponseEntity<>(formation1,HttpStatus.CREATED);
-    }
-
-    @PostMapping("/{id}/add/experience" )
-    public ResponseEntity<Experience> addExperience(@PathVariable("id") Long idCandidat, @RequestBody Experience experience){
-        Experience experience1= candidatService.addExperience(idCandidat,experience);
-        return new ResponseEntity<>(experience1,HttpStatus.CREATED);
-    }
 
 
-    @DeleteMapping("/delete/formation/{id}")
-    public ResponseEntity<?> deleteFormation(@PathVariable("id") Long id) {
-        candidatService.deleteFormation(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
-    @PutMapping("/update/formation")
-    public ResponseEntity<Formation> updateFormation(@RequestBody Formation formation) {
-        Formation updateFormation = candidatService.updateFormation(formation);
-        return new ResponseEntity<>(updateFormation, HttpStatus.OK);
-    }
 
-    @DeleteMapping("/delete/experience/{id}")
-    public ResponseEntity<?> deleteExperience(@PathVariable("id") Long id) {
-        candidatService.deleteExperience(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
-    @PutMapping("/update/experience")
-    public ResponseEntity<Experience> updateExperience(@RequestBody Experience experience) {
-        Experience updateExperience = candidatService.updateExperience(experience);
-        return new ResponseEntity<>(updateExperience, HttpStatus.OK);
-    }
+
+
 
     @GetMapping("{id}/offrePostuler")
     public ResponseEntity<List<CandidatureOffre>> getOffresPostuler(@PathVariable("id") Long idCandidat){
