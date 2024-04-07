@@ -54,33 +54,11 @@ public class Candidat implements Serializable {
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonBackReference("image-candidat")
     @JoinColumn(name="img_id")
+
     private ImageCandidat imageCandidat;
 
 
 
-
-    //Relation entre (Candidate) et (Experience)
-    @OneToMany(mappedBy = "candidat")
-    //@JsonManagedReference
-   // @JsonIgnore
-    private List<Experience> experiencesProfessionnelles;
-
-    //Relation entre (Candidate) et (Competence)
-    @ManyToMany
-    @JoinTable(
-            name = "candidat_competence",
-            joinColumns = @JoinColumn(name = "candidat_id"),
-            inverseJoinColumns = @JoinColumn(name = "competence_id"))
-    //@JsonBackReference
-    @JsonIgnore
-
-    private List<Competence> competences;
-
-    //Relation entre (Candidate) et (Formation)
-    @OneToMany(mappedBy = "candidat")
-    //@JsonManagedReference
-    //@JsonIgnore
-    private List<Formation> formations;
 
     public String toString() {
         return "Candidat [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", motDePasse="

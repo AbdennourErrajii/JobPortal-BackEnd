@@ -22,10 +22,7 @@ public class CandidatService {
     @Autowired
     private CandidatureRepo candidatureRepo;
 
-    @Autowired
-    private FormationRepo formationRepo;
-    @Autowired
-    private ExperienceRepo experienceRepo;
+
 
 
     //***********Gestion d'un Candidat************
@@ -51,51 +48,6 @@ public class CandidatService {
     }
 
 
-    //***********Gestion des Formations************
-
-    public Formation addFormation(long idCandidat,Formation formation) {
-        Candidat candidat=candidatRepo.findCandidatById(idCandidat);
-        formation.setCandidat(candidat);
-        formationRepo.save(formation);
-        return formation;
-    }
-
-    public Formation updateFormation(Formation formation) {
-        Long idFormation =formation.getId();
-        Formation last=formationRepo.findFormationsById(idFormation);
-        formation.setCandidat(last.getCandidat());
-        return formationRepo.save(formation);
-    }
-
-    public void deleteFormation(Long id) {
-        formationRepo.deleteFormationById(id);
-    }
-    public List<Formation> getFormationsByCandidat(Long idCandidat) {
-        return formationRepo.findFormationsByCandidat(idCandidat);
-    }
-
-    //***********Gestion des Experiences************
-
-public Experience addExperience(Long idCandidat,Experience experience) {
-        Candidat candidat = candidatRepo.findCandidatById(idCandidat);
-        experience.setCandidat(candidat);
-        experienceRepo.save(experience);
-        return experience;
-    }
-    public Experience updateExperience(Experience experience) {
-        Long idExperience =experience.getId();
-        Experience last=experienceRepo.findExperienceById(idExperience);
-        experience.setCandidat(last.getCandidat());
-        return experienceRepo.save(experience);
-    }
-
-    public void deleteExperience(Long id) {
-        experienceRepo.deleteExperienceById(id);
-    }
-
-    public List<Experience> getExperiencesByCandidat(Long idCandidat) {
-        return experienceRepo.findExperiencesByCandidat(idCandidat);
-    }
 
     //********Gestion des condidature**********
 

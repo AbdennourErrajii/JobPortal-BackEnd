@@ -19,6 +19,7 @@ public class ImageCandidat {
     private String nom;
     private String type;
     @Lob
+    @Column(columnDefinition="MEDIUMBLOB")
     private byte[] data;
     @OneToOne(fetch = FetchType.LAZY ,mappedBy = "imageCandidat")
     //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
