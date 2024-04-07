@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employeurs")
+@RequestMapping("/employeur")
 @CrossOrigin("*")
 public class EmployeurController {
 
@@ -35,9 +35,8 @@ public class EmployeurController {
         return employeurService.getEmployeurById(id).orElse(null);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Employeur save(@RequestBody Employeur employeur) {
-
         return employeurService.saveEmployeur(employeur);
     }
 

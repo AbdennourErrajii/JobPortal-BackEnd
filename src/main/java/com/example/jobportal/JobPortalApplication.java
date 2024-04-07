@@ -20,7 +20,7 @@ import java.util.List;
 @SpringBootApplication
 public class JobPortalApplication implements CommandLineRunner {
 
-   /*
+/*
     @Autowired
     private CandidatRepo candidatRepo;
     @Autowired
@@ -38,8 +38,8 @@ public class JobPortalApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-/*
-      iEmploiInitService.initCandidat();
+
+     /* iEmploiInitService.initCandidat();
         iEmploiInitService.initFormation();
         iEmploiInitService.initExperience();
         iEmploiInitService.initDomaine();

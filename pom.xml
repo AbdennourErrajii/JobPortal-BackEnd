@@ -69,11 +69,14 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.lazydog.repository</groupId>
             <artifactId>repository-api</artifactId>
             <version>1.12</version>
         </dependency>
+
+
     </dependencies>
 
     <build>

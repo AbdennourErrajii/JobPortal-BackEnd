@@ -31,7 +31,6 @@ public class CandidatService {
     //***********Gestion d'un Candidat************
 
     public Candidat addCandidat(Candidat candidat) {
-
         return candidatRepo.save(candidat);
     }
 
@@ -120,7 +119,7 @@ public Experience addExperience(Long idCandidat,Experience experience) {
         candidature.setCandidat(candidat);
         candidature.setOffreEmploi(offreEmploi);
         candidature.setDateCandidature(new Date());
-        candidature.setStatut("En attente");
+        candidature.setStatut("In progress");
         candidatureRepo.save(candidature);
         return candidature;
     }

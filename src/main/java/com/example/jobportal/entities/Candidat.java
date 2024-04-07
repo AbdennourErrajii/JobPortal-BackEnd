@@ -27,6 +27,8 @@ public class Candidat implements Serializable {
     private String prenom;
     @Column(length = 50)
     private String role;
+    @Column(length = 50)
+    private String sexe;
     @Column(length = 100)
     private String email;
     @Column(length = 100)
@@ -37,14 +39,30 @@ public class Candidat implements Serializable {
     private String adresse;
     @Column(length = 50)
     private String lieuDeResidence;
-
-    private byte[] photo; // Stockage de la photo en tant que tableau d'octets
-    private byte[] cv; // Stockage du CV en tant que tableau d'octets
     private String lettreMotivation;
+
+
+    //Relation entre Candidat et CV
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonBackReference("cv-candidat")
+    @JoinColumn(name="cv_id")
+    private CvCandidat cvCandidat ;
+
+
+    //Relation entre Candidat et ImageCandidat
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference("image-candidat")
+    @JoinColumn(name="img_id")
+    private ImageCandidat imageCandidat;
+
+
+
 
     //Relation entre (Candidate) et (Experience)
     @OneToMany(mappedBy = "candidat")
-    @JsonManagedReference
+    //@JsonManagedReference
+   // @JsonIgnore
     private List<Experience> experiencesProfessionnelles;
 
     //Relation entre (Candidate) et (Competence)
@@ -53,12 +71,15 @@ public class Candidat implements Serializable {
             name = "candidat_competence",
             joinColumns = @JoinColumn(name = "candidat_id"),
             inverseJoinColumns = @JoinColumn(name = "competence_id"))
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
+
     private List<Competence> competences;
 
     //Relation entre (Candidate) et (Formation)
     @OneToMany(mappedBy = "candidat")
-    @JsonManagedReference
+    //@JsonManagedReference
+    //@JsonIgnore
     private List<Formation> formations;
 
     public String toString() {

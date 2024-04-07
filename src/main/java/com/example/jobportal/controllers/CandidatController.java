@@ -1,15 +1,11 @@
 package com.example.jobportal.controllers;
 
-
 import com.example.jobportal.entities.*;
 import com.example.jobportal.services.CandidatService;
-import jakarta.persistence.PostRemove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +20,32 @@ public class CandidatController {
 
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Candidat> getCandidatById(@PathVariable Long id) {
+        // Rechercher le candidat par son ID à l'aide du service
+        Candidat candidat = candidatService.findCandidatById(id);
+
+        if (candidat != null) {
+            // Si le candidat est trouvé, retourner le candidat avec le statut HTTP 200 OK
+            return new ResponseEntity<>(candidat, HttpStatus.OK);
+        } else {
+            // Si le candidat n'est pas trouvé, retourner le statut HTTP 404 Not Found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PostMapping(value = "/add")
+    public ResponseEntity<Candidat> addCandidat(@RequestBody Candidat candidat) {
+        Candidat newCandidat = candidatService.addCandidat(candidat);
+        return new ResponseEntity<>(newCandidat, HttpStatus.CREATED);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Candidat>> getAllCandidats () {
         List<Candidat> candidats = candidatService.findAllCandidats();
         return new ResponseEntity<>(candidats, HttpStatus.OK);
     }
+
+
 
    @GetMapping("/{id}/formations")
     public ResponseEntity<List<Formation>> getAllFormationsByCandidat(@PathVariable("id") Long idCandidat){
@@ -101,6 +118,12 @@ public class CandidatController {
 
 
 
+
+    @DeleteMapping("/delete/candidature/{id}")
+    public ResponseEntity<?> deleteCandidature(@PathVariable("id") Long id) {
+        candidatService.deleteCandidature(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 
