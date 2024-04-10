@@ -69,10 +69,26 @@ public class CandidatController {
         return new ResponseEntity<>(offres,HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/postuler/{idOffre}")
+    /*@PostMapping("/{id}/postuler/{idOffre}")
     public ResponseEntity<Candidature> postuler(@PathVariable("id") Long idCandidat,@PathVariable("idOffre") Long idOffre){
         Candidature candidature=candidatService.Postuler(idCandidat,idOffre);
         return new ResponseEntity<>(candidature,HttpStatus.CREATED);
+    }*/
+    @PostMapping("/{id}/postuler/{idOffre}")
+    public ResponseEntity<Candidature> postuler(@PathVariable("id") Long idCandidat,@PathVariable("idOffre") Long idOffre){
+        try {
+            Candidature candidature = candidatService.Postuler(idCandidat, idOffre);
+            return new ResponseEntity<>(candidature, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            // Gérer les exceptions liées aux arguments invalides
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (IllegalStateException e) {
+            // Gérer les exceptions liées à l'état invalide
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            // Gérer toutes les autres exceptions imprévues
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

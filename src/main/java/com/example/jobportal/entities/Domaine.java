@@ -25,7 +25,8 @@ public class Domaine {
     //Rlation entre Domaine et Offre
     @OneToMany(mappedBy = "domaine")
     //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonManagedReference("domaine-offre")
+    //@JsonManagedReference("domaine-offre")
+    @JsonIgnore
     private List<OffreEmploi> OffreEmploi;
 
 

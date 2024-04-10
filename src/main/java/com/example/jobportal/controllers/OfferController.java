@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/offres-emploi")
 @CrossOrigin("*")
-public class OfferControllers {
+public class OfferController {
 
     @Autowired
     private OffreEmploiService offreEmploiService;

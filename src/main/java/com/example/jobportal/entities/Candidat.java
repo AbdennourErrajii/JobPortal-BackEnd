@@ -54,7 +54,6 @@ public class Candidat implements Serializable {
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonBackReference("image-candidat")
     @JoinColumn(name="img_id")
-
     private ImageCandidat imageCandidat;
 
 

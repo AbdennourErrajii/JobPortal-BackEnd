@@ -23,7 +23,8 @@ public class Ville {
     //Rlation entre Ville et Offre
     @OneToMany(mappedBy = "ville")
     //  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonManagedReference("ville-offre")
+    //@JsonManagedReference("ville-offre")
+    @JsonIgnore
     private List<OffreEmploi> OffreEmploi;
 
     public Ville(String nom) {

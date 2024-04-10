@@ -51,14 +51,14 @@ public class OffreEmploi implements Serializable {
 //Relation entre (Offre) et (Domaine)
     @ManyToOne
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonBackReference("domaine-offre")
+    //@JsonBackReference("domaine-offre")
     @JoinColumn(name = "domaine_id")
     private Domaine domaine;
 
     //Relation entre (Offre) et (Ville)
     @ManyToOne
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonBackReference("ville-offre")
+    //@JsonBackReference("ville-offre")
     @JoinColumn(name = "ville_id")
     private Ville ville;
 

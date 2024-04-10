@@ -1,5 +1,6 @@
 package com.example.jobportal.services;
 
+import com.example.jobportal.entities.OffreEmploi;
 import com.example.jobportal.entities.Ville;
 import com.example.jobportal.repositories.VilleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class VilleService {
 
     public void deleteVille(Long id) {
         villeRepository.deleteById(id);
+    }
+
+    public List<OffreEmploi> getOffresEmploiByVilleId(Long villeId) {
+        return villeRepository.findOffreEmploiById(villeId);
     }
 
 }
